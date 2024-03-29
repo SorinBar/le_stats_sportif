@@ -1,21 +1,12 @@
 import os
 import json
-import csv
+import pandas as pd
 
 class DataIngestor:
     def __init__(self, csv_path: str):
-        self.data = []
-        self.column_index = {}
 
-        with open(csv_path, newline='') as csvfile:
-            csv_reader = csv.reader(csvfile)
-            
-            columns = next(csv_reader)
-            for i in range(len(columns)):
-                self.column_index[columns[i]] = i
-
-            for row in csv_reader:
-                self.data.append(row)
+        print(csv_path)
+        self.data = pd.read_csv(csv_path)
  
         self.questions_best_is_min = [
             'Percent of adults aged 18 years and older who have an overweight classification',

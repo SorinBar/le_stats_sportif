@@ -36,8 +36,13 @@ def get_response(job_id):
     #        'data': res
     #    })
 
+
+    print(int(job_id))
+
+
+
     # If not, return running status
-    return jsonify({'status': 'NotImplemented'})
+    return jsonify({'status': 'NotImplemented'}), 400
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():

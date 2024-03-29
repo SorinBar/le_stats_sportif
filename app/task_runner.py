@@ -1,5 +1,4 @@
-from queue import Queue
-from threading import Thread, Event
+from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
 
 class ThreadPool:
@@ -16,18 +15,34 @@ class ThreadPool:
         # TODO get max_workers
         self.executor = ThreadPoolExecutor(max_workers=4)
         self.futures = []
+        self.lock = Lock()
+    
+    def submit(self, task, *args):
+        self.lock.acquire()
+        self.futures.append(self.executor.submit(task, args))
+        self.lock.release()
+    
+    def get_jobs(self):
+        length = 0
+        self.lock.acquire()
+        length = len(self.futures)
+        self.lock.release()
+
+        for i in range(length):
+            print(i, end=' ')
+            print(self.futures[i].done())
         
-        pass
+    def is_job_done(self, index):
+        length = 0
+        self.lock.acquire()
+        length = len(self.futures)
+        self.lock.release()
 
-class TaskRunner(Thread):
-    def __init__(self):
-        # TODO: init necessary data structures
-        pass
+        if index >= length:
+            return False
+        else:
+            return self.futures[index].done()
 
-    def run(self):
-        while True:
-            # TODO
-            # Get pending job
-            # Execute the job and save the result to disk
-            # Repeat until graceful_shutdown
-            pass
+
+    def shutdown(self):
+        self.executor.shutdown()
