@@ -17,7 +17,6 @@ def post_endpoint():
         response = {"message": "Received data successfully", "data": data}
 
         # Sending back a JSON response
-        response = webserver.data_ingestor.data[0]
         return jsonify(response)
     else:
         # Method Not Allowed
