@@ -7,6 +7,7 @@ import json
 # Example endpoint definition
 @webserver.route('/api/post_endpoint', methods=['POST'])
 def post_endpoint():
+    webserver.logger.info("Echo")
     if request.method == 'POST':
         # Assuming the request contains JSON data
         data = request.json
