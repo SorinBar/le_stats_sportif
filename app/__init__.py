@@ -1,7 +1,7 @@
 from flask import Flask
 from app.data_ingestor import DataIngestor
 from app.task_runner import ThreadPool
-from app.logger_config import get_logger
+from app.logger import get_logger
 
 
 webserver = Flask(__name__)
