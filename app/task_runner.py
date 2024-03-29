@@ -1,6 +1,6 @@
 from queue import Queue
 from threading import Thread, Event
-import time
+from concurrent.futures import ThreadPoolExecutor
 
 class ThreadPool:
     def __init__(self):
@@ -12,6 +12,11 @@ class ThreadPool:
         # You must NOT:
         #   * create more threads than the hardware concurrency allows
         #   * recreate threads for each task
+
+        # TODO get max_workers
+        self.executor = ThreadPoolExecutor(max_workers=4)
+        self.futures = []
+        
         pass
 
 class TaskRunner(Thread):
