@@ -14,7 +14,7 @@ class ThreadPool:
         #   * recreate threads for each task
 
         # TODO get max_workers
-        self.executor = ThreadPoolExecutor(max_workers=4)
+        self.executor = ThreadPoolExecutor(max_workers=10)
         self.futures = []
         self.lock = Lock()
     
@@ -43,9 +43,12 @@ class ThreadPool:
         length = len(self.futures)
         self.lock.release()
 
+        jobs_done = []
         for i in range(length):
-            print(i, end=' ')
-            print(self.futures[i].done())
+            jobs_done.append(self.futures[i].done())
+
+        return jobs_done
+
         
    
 

@@ -27,20 +27,30 @@ def post_endpoint():
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_results(job_id):
     index = int(job_id[7:]) - 1
-    return get_results_service(index, webserver)
+    return jsonify(get_results_service(index, webserver))
+
+@webserver.route('/api/jobs', methods=['GET'])
+def get_jobs():
+    return jsonify(get_jobs_service(webserver))
+
+@webserver.route('/api/num_jobs', methods=['GET'])
+def get_num_jobs():
+    return jsonify(get_num_jobs_service(webserver))
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
-    # Get request data
     data = request.json
-    print(f"Got request {data}")
+    webserver.logger.info(data)
 
-    # TODO
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
 
-    return jsonify({"status": "NotImplemented"})
+    job_id = webserver.tasks_runner.submit(
+        states_mean_service,
+        webserver,
+        data["question"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
@@ -51,8 +61,11 @@ def state_mean_request():
     if "state" not in data:
         return jsonify({"error": "Missing state"}), 400
 
-
-    job_id = webserver.tasks_runner.submit(state_mean_service, webserver, data["question"], data["state"])
+    job_id = webserver.tasks_runner.submit(
+        state_mean_service,
+        webserver,
+        data["question"],
+        data["state"])
 
     return jsonify({"job_id": "job_id_" + str(job_id)})
 
