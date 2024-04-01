@@ -26,18 +26,6 @@ def post_endpoint():
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_results(job_id):
-    # print(f"JobID is {job_id}")
-
-    # TODO
-    # Check if job_id is valid
-
-    # Check if job_id is done and return the result
-    #    res = res_for(job_id)
-    #    return jsonify({
-    #        'status': 'done',
-    #        'data': res
-    #    })
-
     index = int(job_id[7:]) - 1
     return get_results_service(index, webserver)
 
@@ -67,14 +55,6 @@ def state_mean_request():
     job_id = webserver.tasks_runner.submit(state_mean_service, webserver, data["question"], data["state"])
 
     return jsonify({"job_id": "job_id_" + str(job_id)})
-
-
-# TODO delete it
-@webserver.route('/api/state_mean2', methods=['POST'])
-def state_mean_request2():
-    webserver.tasks_runner.get_jobs()
-
-    return {}
 
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
