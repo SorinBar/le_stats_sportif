@@ -1,4 +1,5 @@
 import json
+from time import sleep
 import pandas as pd
 
 def save_json(path, data):
@@ -11,8 +12,6 @@ def read_json(path):
     return data
 
 def state_mean_service(job_id, webserver, question, state):
-    print(job_id)
-    print("XXXXXXXXXXXx")
     data = webserver.data_ingestor.data
     mean = data[
         (data['Question'] == question) &
@@ -22,7 +21,12 @@ def state_mean_service(job_id, webserver, question, state):
     
     result = {state: mean}
 
+    sleep(2)
+
     save_json('jobs/job_id_' + str(job_id), result)
     
     # return read_json('jobs/job_id_' + str(job_id))
 
+def get_results_service(index, webserver):
+    status = webserver.tasks_runner.get_job(index)
+    return {"status": status}

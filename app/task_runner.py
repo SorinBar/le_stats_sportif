@@ -1,5 +1,6 @@
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
+from enum import Enum
 
 class ThreadPool:
     def __init__(self):
@@ -25,6 +26,18 @@ class ThreadPool:
 
         return job_id
 
+    def get_job(self, index):
+        self.lock.acquire()
+        length = len(self.futures)
+        self.lock.release()
+
+        if index < 0 or length <= index:
+            return "error"
+        elif self.futures[index].done():
+            return "done"
+        else:
+            return "running"
+
     def get_jobs(self):
         self.lock.acquire()
         length = len(self.futures)
@@ -34,15 +47,7 @@ class ThreadPool:
             print(i, end=' ')
             print(self.futures[i].done())
         
-    def is_job_done(self, index):
-        self.lock.acquire()
-        length = len(self.futures)
-        self.lock.release()
-
-        if index >= length:
-            return False
-        else:
-            return self.futures[index].done()
+   
 
 
     def shutdown(self):

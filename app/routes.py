@@ -25,8 +25,9 @@ def post_endpoint():
         return jsonify({"error": "Method not allowed"}), 405
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
-def get_response(job_id):
-    print(f"JobID is {job_id}")
+def get_results(job_id):
+    # print(f"JobID is {job_id}")
+
     # TODO
     # Check if job_id is valid
 
@@ -37,13 +38,8 @@ def get_response(job_id):
     #        'data': res
     #    })
 
-
-    print(int(job_id))
-
-
-
-    # If not, return running status
-    return jsonify({'status': 'NotImplemented'}), 400
+    index = int(job_id[7:]) - 1
+    return get_results_service(index, webserver)
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
@@ -72,6 +68,13 @@ def state_mean_request():
 
     return jsonify({"job_id": "job_id_" + str(job_id)})
 
+
+# TODO delete it
+@webserver.route('/api/state_mean2', methods=['POST'])
+def state_mean_request2():
+    webserver.tasks_runner.get_jobs()
+
+    return {}
 
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
