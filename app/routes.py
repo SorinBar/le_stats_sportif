@@ -1,5 +1,6 @@
 from app import webserver
 from flask import request, jsonify
+from app.services import *
 
 import os
 import json
@@ -59,13 +60,17 @@ def states_mean_request():
 
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+    if "state" not in data:
+        return jsonify({"error": "Missing state"}), 400
+
+
+    job_id = webserver.tasks_runner.submit(state_mean_service, webserver, data["question"], data["state"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 
 @webserver.route('/api/best5', methods=['POST'])

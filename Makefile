@@ -23,3 +23,7 @@ run_tests: enforce_venv
 run_unittests: enforce_venv
 	python unittests/test_webserver.py
 
+clean:
+	rm -r jobs
+	mkdir jobs
+

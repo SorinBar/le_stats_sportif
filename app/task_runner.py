@@ -19,11 +19,13 @@ class ThreadPool:
     
     def submit(self, task, *args):
         self.lock.acquire()
-        self.futures.append(self.executor.submit(task, args))
+        job_id = len(self.futures) + 1
+        self.futures.append(self.executor.submit(task, job_id, *args))
         self.lock.release()
-    
+
+        return job_id
+
     def get_jobs(self):
-        length = 0
         self.lock.acquire()
         length = len(self.futures)
         self.lock.release()
@@ -33,7 +35,6 @@ class ThreadPool:
             print(self.futures[i].done())
         
     def is_job_done(self, index):
-        length = 0
         self.lock.acquire()
         length = len(self.futures)
         self.lock.release()

@@ -4,8 +4,6 @@ import pandas as pd
 
 class DataIngestor:
     def __init__(self, csv_path: str):
-
-        print(csv_path)
         self.data = pd.read_csv(csv_path)
  
         self.questions_best_is_min = [
