@@ -40,7 +40,6 @@ def get_num_jobs():
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
     data = request.json
-    webserver.logger.info(data)
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -71,33 +70,45 @@ def state_mean_request():
 
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+
+    job_id = webserver.tasks_runner.submit(
+        best5_service,
+        webserver,
+        data["question"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/worst5', methods=['POST'])
 def worst5_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+
+    job_id = webserver.tasks_runner.submit(
+        worst5_service,
+        webserver,
+        data["question"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/global_mean', methods=['POST'])
 def global_mean_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+
+    job_id = webserver.tasks_runner.submit(
+        global_mean_service,
+        webserver,
+        data["question"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/diff_from_mean', methods=['POST'])
 def diff_from_mean_request():
