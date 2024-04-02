@@ -1,19 +1,16 @@
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
+from dotenv import load_dotenv
+import os
 
 class ThreadPool:
     def __init__(self):
-        # You must implement a ThreadPool of TaskRunners
-        # Your ThreadPool should check if an environment variable TP_NUM_OF_THREADS is defined
-        # If the env var is defined, that is the number of threads to be used by the thread pool
-        # Otherwise, you are to use what the hardware concurrency allows
-        # You are free to write your implementation as you see fit, but
-        # You must NOT:
-        #   * create more threads than the hardware concurrency allows
-        #   * recreate threads for each task
-
-        # TODO get max_workers
-        self.executor = ThreadPoolExecutor(max_workers=10)
+        tp_num_of_threads = os.getenv("TP_NUM_OF_THREADS")
+        if tp_num_of_threads:
+            max_workers = int(tp_num_of_threads)
+        else:
+            max_workers = os.cpu_count()
+        self.executor = ThreadPoolExecutor(max_workers=max_workers)
         self.futures = []
         self.futures_lock = Lock()
         self.running = True

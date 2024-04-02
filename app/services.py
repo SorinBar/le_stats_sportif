@@ -63,7 +63,7 @@ def get_results_service(index, webserver):
     else:
         return {
             "status": status,
-            "data": read_json("jobs/job_id_" + str(index + 1))
+            "data": read_json("job_id_" + str(index + 1))
         }
 
 def get_jobs_service(webserver):
@@ -109,7 +109,7 @@ def state_mean_service(job_id, webserver, question, state):
     webserver.logger.info(state)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def states_mean_service(job_id, webserver, question):
     result_array = states_mean_array(webserver, question)
@@ -121,7 +121,7 @@ def states_mean_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def best5_service(job_id, webserver, question):
     result_array = states_mean_array(webserver, question)
@@ -142,7 +142,7 @@ def best5_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def worst5_service(job_id, webserver, question):
     result_array = states_mean_array(webserver, question)
@@ -163,7 +163,7 @@ def worst5_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def global_mean_service(job_id, webserver, question):
     data = webserver.data_ingestor.data
@@ -178,7 +178,7 @@ def global_mean_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def diff_from_mean_service(job_id, webserver, question):
     result_array = states_mean_array(webserver, question)
@@ -197,7 +197,7 @@ def diff_from_mean_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def state_diff_from_mean_service(job_id, webserver, question, state):
     data = webserver.data_ingestor.data
@@ -221,7 +221,7 @@ def state_diff_from_mean_service(job_id, webserver, question, state):
     webserver.logger.info(state)
     webserver.logger.info(result)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)
 
 def mean_by_category_service(job_id, webserver, question):
     data = webserver.data_ingestor.data
@@ -234,7 +234,7 @@ def mean_by_category_service(job_id, webserver, question):
             'Stratification1',
             'Data_Value']]
 
-    # Keep the sum of the values and count for each location
+    # Keep the sum of the values and count for each key
     category_values = {}
     for _, row in data_values.iterrows():
         location = row['LocationDesc']
@@ -263,7 +263,7 @@ def mean_by_category_service(job_id, webserver, question):
     webserver.logger.info(question)
     webserver.logger.info(category_values)
 
-    save_json('jobs/job_id_' + str(job_id), category_values)
+    save_json('job_id_' + str(job_id), category_values)
 
 def state_mean_by_category_service(job_id, webserver, question, state):
     data = webserver.data_ingestor.data
@@ -276,7 +276,7 @@ def state_mean_by_category_service(job_id, webserver, question, state):
             'Stratification1',
             'Data_Value']]
 
-    # Keep the sum of the values and count for each location
+    # Keep the sum of the values and count for each key
     category_values = {}
     for _, row in data_values.iterrows():
         stratification_category = row['StratificationCategory1']
@@ -309,4 +309,4 @@ def state_mean_by_category_service(job_id, webserver, question, state):
     webserver.logger.info(question)
     webserver.logger.info(category_values)
 
-    save_json('jobs/job_id_' + str(job_id), result)
+    save_json('job_id_' + str(job_id), result)

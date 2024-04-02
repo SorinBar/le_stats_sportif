@@ -15,10 +15,10 @@ install: enforce_venv requirements.txt
 	python -m pip install -r requirements.txt
 
 run_server: enforce_venv
-	rm -r jobs
-	mkdir jobs
-	rm  webserver.*
+	# rm job_id_*
+	# rm  webserver.*
 	flask run
+	
 
 run_tests: enforce_venv
 	python checker/checker.py
