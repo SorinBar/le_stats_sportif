@@ -222,3 +222,45 @@ def state_diff_from_mean_service(job_id, webserver, question, state):
     webserver.logger.info(result)
 
     save_json('jobs/job_id_' + str(job_id), result)
+
+def mean_by_category_service(job_id, webserver, question):
+    data = webserver.data_ingestor.data
+    data_values = data[
+        (data['Question'] == question) &
+        (data['YearStart'] >= 2011) &
+        (data['YearEnd'] <= 2022)][[
+            'LocationDesc',
+            'StratificationCategory1',
+            'Stratification1',
+            'Data_Value']]
+
+    # Keep the sum of the values and count for each location
+    category_values = {}
+    for _, row in data_values.iterrows():
+        location = row['LocationDesc']
+        stratification_category = row['StratificationCategory1']
+        stratification = row['Stratification1']
+        value = row['Data_Value']
+        key = f"('{location}', '{stratification_category}', '{stratification}')"
+        
+        if pd.isna(stratification_category) or pd.isna(stratification):
+            continue
+
+        if key not in category_values:
+            category_values[key] = {
+                "total_value": value,
+                "count": 1
+            }
+        else:
+            category_values[key]["total_value"] += value
+            category_values[key]["count"] += 1
+        
+    for key in category_values:
+        value = category_values[key]
+        category_values[key] = value["total_value"] / value["count"]
+
+    webserver.logger.info("state_diff_from_mean_service:")
+    webserver.logger.info(question)
+    webserver.logger.info(category_values)
+
+    save_json('jobs/job_id_' + str(job_id), category_values)

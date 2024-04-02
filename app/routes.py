@@ -143,13 +143,17 @@ def state_diff_from_mean_request():
 
 @webserver.route('/api/mean_by_category', methods=['POST'])
 def mean_by_category_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+
+    job_id = webserver.tasks_runner.submit(
+        mean_by_category_service,
+        webserver,
+        data["question"])
+
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/state_mean_by_category', methods=['POST'])
 def state_mean_by_category_request():
