@@ -179,3 +179,21 @@ def global_mean_service(job_id, webserver, question):
     webserver.logger.info(result)
 
     save_json('jobs/job_id_' + str(job_id), result)
+
+def diff_from_mean_service(job_id, webserver, question):
+    result_array = states_mean_array(webserver, question)
+    result = {}
+    data = webserver.data_ingestor.data
+    global_mean = data[
+        (data['Question'] == question) &
+        (data['YearStart'] >= 2011) &
+        (data['YearEnd'] <= 2022)]['Data_Value'].mean()
+
+    for location, mean in result_array:
+        result[location] = global_mean - mean    
+
+    webserver.logger.info("diff_from_mean_service:")
+    webserver.logger.info(question)
+    webserver.logger.info(result)
+
+    save_json('jobs/job_id_' + str(job_id), result)
