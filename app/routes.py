@@ -157,13 +157,20 @@ def mean_by_category_request():
 
 @webserver.route('/api/state_mean_by_category', methods=['POST'])
 def state_mean_by_category_request():
-    # TODO
-    # Get request data
-    # Register job. Don't wait for task to finish
-    # Increment job_id counter
-    # Return associated job_id
+    data = request.json
 
-    return jsonify({"status": "NotImplemented"})
+    if "question" not in data:
+        return jsonify({"error": "Missing question"}), 400
+    if "state" not in data:
+        return jsonify({"error": "Missing state"}), 400
+
+    job_id = webserver.tasks_runner.submit(
+        state_mean_by_category_service,
+        webserver,
+        data["question"],
+        data["state"])
+    
+    return jsonify({"job_id": "job_id_" + str(job_id)})
 
 # You can check localhost in your browser to see what this displays
 @webserver.route('/')
