@@ -27,6 +27,8 @@ def post_endpoint():
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_results(job_id):
     index = int(job_id[7:]) - 1
+    webserver.logger.info("get_results: " + str(index))
+    
     return jsonify(get_results_service(index, webserver))
 
 @webserver.route('/api/jobs', methods=['GET'])
@@ -35,11 +37,14 @@ def get_jobs():
 
 @webserver.route('/api/num_jobs', methods=['GET'])
 def get_num_jobs():
+    webserver.logger.info("get_num_jobs")
+
     return jsonify(get_num_jobs_service(webserver))
 
 @webserver.route('/api/states_mean', methods=['POST'])
 def states_mean_request():
     data = request.json
+    webserver.logger.info("states_mean_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -54,6 +59,7 @@ def states_mean_request():
 @webserver.route('/api/state_mean', methods=['POST'])
 def state_mean_request():
     data = request.json
+    webserver.logger.info("state_mean_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -71,6 +77,7 @@ def state_mean_request():
 @webserver.route('/api/best5', methods=['POST'])
 def best5_request():
     data = request.json
+    webserver.logger.info("best5_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -85,6 +92,7 @@ def best5_request():
 @webserver.route('/api/worst5', methods=['POST'])
 def worst5_request():
     data = request.json
+    webserver.logger.info("worst5_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -99,6 +107,7 @@ def worst5_request():
 @webserver.route('/api/global_mean', methods=['POST'])
 def global_mean_request():
     data = request.json
+    webserver.logger.info("global_mean_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -113,6 +122,7 @@ def global_mean_request():
 @webserver.route('/api/diff_from_mean', methods=['POST'])
 def diff_from_mean_request():
     data = request.json
+    webserver.logger.info("diff_from_mean_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -127,6 +137,7 @@ def diff_from_mean_request():
 @webserver.route('/api/state_diff_from_mean', methods=['POST'])
 def state_diff_from_mean_request():
     data = request.json
+    webserver.logger.info("state_diff_from_mean_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -144,6 +155,7 @@ def state_diff_from_mean_request():
 @webserver.route('/api/mean_by_category', methods=['POST'])
 def mean_by_category_request():
     data = request.json
+    webserver.logger.info("mean_by_category_request: " + str(data))
 
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
@@ -158,7 +170,8 @@ def mean_by_category_request():
 @webserver.route('/api/state_mean_by_category', methods=['POST'])
 def state_mean_by_category_request():
     data = request.json
-
+    webserver.logger.info("state_mean_by_category_request: " + str(data))
+    
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
     if "state" not in data:
@@ -171,6 +184,12 @@ def state_mean_by_category_request():
         data["state"])
     
     return jsonify({"job_id": "job_id_" + str(job_id)})
+
+@webserver.route('/api/graceful_shutdown', methods=['GET'])
+def graceful_shutdown():
+    webserver.logger.info("graceful_shutdown")
+    webserver.tasks_runner.shutdown()
+    return jsonify({"status": "shutting down"})
 
 # You can check localhost in your browser to see what this displays
 @webserver.route('/')

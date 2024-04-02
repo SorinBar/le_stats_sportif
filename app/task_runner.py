@@ -1,6 +1,5 @@
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
-from enum import Enum
 
 class ThreadPool:
     def __init__(self):
@@ -16,20 +15,31 @@ class ThreadPool:
         # TODO get max_workers
         self.executor = ThreadPoolExecutor(max_workers=10)
         self.futures = []
-        self.lock = Lock()
+        self.futures_lock = Lock()
+        self.running = True
+        self.running_lock = Lock()
+
     
     def submit(self, task, *args):
-        self.lock.acquire()
+        # Check if server is shutting down
+        self.running_lock.acquire()
+        running = self.running
+        self.running_lock.release()
+        if not running:
+            return -1
+        
+        # Submit task
+        self.futures_lock.acquire()
         job_id = len(self.futures) + 1
         self.futures.append(self.executor.submit(task, job_id, *args))
-        self.lock.release()
+        self.futures_lock.release()
 
         return job_id
 
     def get_job(self, index):
-        self.lock.acquire()
+        self.futures_lock.acquire()
         length = len(self.futures)
-        self.lock.release()
+        self.futures_lock.release()
 
         if index < 0 or length <= index:
             return "error"
@@ -39,9 +49,9 @@ class ThreadPool:
             return "running"
 
     def get_jobs(self):
-        self.lock.acquire()
+        self.futures_lock.acquire()
         length = len(self.futures)
-        self.lock.release()
+        self.futures_lock.release()
 
         jobs_done = []
         for i in range(length):
@@ -49,9 +59,11 @@ class ThreadPool:
 
         return jobs_done
 
-        
-   
-
-
     def shutdown(self):
+        self.running_lock.acquire()
+        self.running = False
+        self.running_lock.release()
+
+        self.futures_lock.acquire()
         self.executor.shutdown()
+        self.futures_lock.release()
