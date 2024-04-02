@@ -44,7 +44,7 @@ def states_mean_array(webserver, question):
     result_array = []
     for location, value in loc_values.items():
         result_array.append((location, value["total_value"] / value["count"]))
-    
+
     result_array.sort(key=lambda x: x[1])
 
     return result_array
@@ -101,7 +101,7 @@ def state_mean_service(job_id, webserver, question, state):
         (data['LocationDesc'] == state) &
         (data['YearStart'] >= 2011) &
         (data['YearEnd'] <= 2022)]['Data_Value'].mean()
-    
+
     result = {state: mean}
 
     webserver.logger.info("state_mean_service:")
@@ -135,8 +135,7 @@ def best5_service(job_id, webserver, question):
         length = len(result)
         for i in range(5):
             location, mean = result_array[length - i - 1]
-            result[location] = mean
-            
+            result[location] = mean    
 
     webserver.logger.info("best5_service:")
     webserver.logger.info(question)
@@ -157,7 +156,6 @@ def worst5_service(job_id, webserver, question):
         for i in range(5):
             location, mean = result_array[length - i - 1]
             result[location] = mean
-            
 
     webserver.logger.info("worst5_service:")
     webserver.logger.info(question)
@@ -171,7 +169,7 @@ def global_mean_service(job_id, webserver, question):
         (data['Question'] == question) &
         (data['YearStart'] >= 2011) &
         (data['YearEnd'] <= 2022)]['Data_Value'].mean()
-    
+
     result = {"global_mean": mean}
 
     webserver.logger.info("global_mean:")
@@ -207,7 +205,7 @@ def state_diff_from_mean_service(job_id, webserver, question, state):
         (data['Question'] == question) &
         (data['YearStart'] >= 2011) &
         (data['YearEnd'] <= 2022)]['Data_Value'].mean()
-    
+
     state_mean = data[
         (data['Question'] == question) &
         (data['LocationDesc'] == state) &
@@ -242,7 +240,7 @@ def mean_by_category_service(job_id, webserver, question):
         stratification = row['Stratification1']
         value = row['Data_Value']
         key = f"('{location}', '{stratification_category}', '{stratification}')"
-        
+
         if pd.isna(stratification_category) or pd.isna(stratification):
             continue
 
@@ -254,7 +252,7 @@ def mean_by_category_service(job_id, webserver, question):
         else:
             category_values[key]["total_value"] += value
             category_values[key]["count"] += 1
-        
+   
     for key in category_values:
         value = category_values[key]
         category_values[key] = value["total_value"] / value["count"]
@@ -283,7 +281,7 @@ def state_mean_by_category_service(job_id, webserver, question, state):
         stratification = row['Stratification1']
         value = row['Data_Value']
         key = f"('{stratification_category}', '{stratification}')"
-        
+
         if pd.isna(stratification_category) or pd.isna(stratification):
             continue
 
@@ -295,7 +293,7 @@ def state_mean_by_category_service(job_id, webserver, question, state):
         else:
             category_values[key]["total_value"] += value
             category_values[key]["count"] += 1
-        
+
     for key in category_values:
         value = category_values[key]
         category_values[key] = value["total_value"] / value["count"]

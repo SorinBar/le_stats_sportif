@@ -1,11 +1,13 @@
-import os
-import json
 import pandas as pd
 
 class DataIngestor:
+    """
+    Stores the data for the webserver
+    """
+
     def __init__(self, csv_path: str):
         self.data = pd.read_csv(csv_path)
- 
+
         self.questions_best_is_min = [
             'Percent of adults aged 18 years and older who have an overweight classification',
             'Percent of adults aged 18 years and older who have obesity',

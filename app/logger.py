@@ -4,8 +4,11 @@ from logging.handlers import RotatingFileHandler
 
 logging.Formatter.converter = time.gmtime
 
-# Setup and return logger
 def get_logger(logger_name, logger_filename):
+    """
+    Setup and return the logger
+    """
+
     logger = logging.getLogger(logger_name)
     logger.setLevel(logging.INFO)
     handler = RotatingFileHandler(logger_filename, maxBytes=10000, backupCount=10)

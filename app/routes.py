@@ -1,9 +1,6 @@
-from app import webserver
 from flask import request, jsonify
+from app import webserver
 from app.services import *
-
-import os
-import json
 
 # Example endpoint definition
 @webserver.route('/api/post_endpoint', methods=['POST'])
@@ -20,16 +17,15 @@ def post_endpoint():
 
         # Sending back a JSON response
         return jsonify(response)
-    else:
-        # Method Not Allowed
-        return jsonify({"error": "Method not allowed"}), 405
+
+    return jsonify({"error": "Method not allowed"}), 405
 
 @webserver.route('/api/get_results/<job_id>', methods=['GET'])
 def get_results(job_id):
-    index = int(job_id[7:]) - 1
-    webserver.logger.info("get_results: " + str(index))
-    
-    return jsonify(get_results_service(index, webserver))
+    job_index = int(job_id[7:]) - 1
+    webserver.logger.info("get_results: " + str(job_index))
+
+    return jsonify(get_results_service(job_index, webserver))
 
 @webserver.route('/api/jobs', methods=['GET'])
 def get_jobs():
@@ -171,7 +167,7 @@ def mean_by_category_request():
 def state_mean_by_category_request():
     data = request.json
     webserver.logger.info("state_mean_by_category_request: " + str(data))
-    
+
     if "question" not in data:
         return jsonify({"error": "Missing question"}), 400
     if "state" not in data:
@@ -182,7 +178,7 @@ def state_mean_by_category_request():
         webserver,
         data["question"],
         data["state"])
-    
+
     return jsonify({"job_id": "job_id_" + str(job_id)})
 
 @webserver.route('/api/graceful_shutdown', methods=['GET'])

@@ -16,7 +16,6 @@ class ThreadPool:
         self.running = True
         self.running_lock = Lock()
 
-    
     def submit(self, task, *args):
         # Check if server is shutting down
         self.running_lock.acquire()
@@ -24,7 +23,7 @@ class ThreadPool:
         self.running_lock.release()
         if not running:
             return -1
-        
+
         # Submit task
         self.futures_lock.acquire()
         job_id = len(self.futures) + 1
