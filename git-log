@@ -1,0 +1,131 @@
+commit d53e1f3c03cdc6b8b619f034525ea185b9e66521
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 14:32:03 2024 +0300
+
+    Done Readme, Pylint check
+
+commit 6cbdd34c31437f9496426551ea50d31239e042dd
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 13:37:57 2024 +0300
+
+    Done env, removed out folder
+
+commit 255585de01fd5b2f38fa3a0660e6a781ef361aaa
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 13:11:58 2024 +0300
+
+    Done shutdown, unittests, log
+
+commit 6065ea39a713ff1688e80f2f5098cce0387fb1e2
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 11:56:03 2024 +0300
+
+    done state_mean_by_category
+
+commit 701bb5ea8d840ea73fff8bc51365563a32f39755
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 11:43:47 2024 +0300
+
+    done mean_by_category
+
+commit e3b06cae973d29d024405b23bf54ccb04786eb39
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 09:17:57 2024 +0300
+
+    Done state_diff_from_mean
+
+commit b65139c9b898832dfd4a72f114c029dd7356b8d7
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 09:11:28 2024 +0300
+
+    Done diff_from_mean
+
+commit 441f183f35d57bca3063b660def75b9e2d67b2d8
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Tue Apr 2 09:04:49 2024 +0300
+
+    Done best5, worst5, global_mean
+
+commit 04efa9336439f905b03fa07ebe93c2e61f4c838f
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Mon Apr 1 21:33:38 2024 +0300
+
+    Done jobs, num_jobs, states_mean + tested
+
+commit e950219782fe532ff0c59e39fd11853f7a4e97e4
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Mon Apr 1 12:59:51 2024 +0300
+
+    removed jobs
+
+commit 965975b076830bc082786dfb755833b693e0f6ab
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Mon Apr 1 12:58:37 2024 +0300
+
+    Done state_mean
+
+commit 13b9dfbe146762b648b26b94422435a6fc549c12
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Mon Apr 1 12:47:28 2024 +0300
+
+    Added get job status + tested
+
+commit 1745b00dc74295fcf8e2debc7de39a1a8c0d1d16
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Mon Apr 1 11:44:19 2024 +0300
+
+    Started submitor + state_mean logic done
+
+commit 80657c3b7b05b190ee21313fc9a81bf7aab2ce6c
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 19:25:44 2024 +0200
+
+    Updated data ingest, created task_runner
+
+commit d3da397b2d575649aa0eaf2da49f37423bb17954
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 18:13:23 2024 +0200
+
+    Updated tests
+
+commit 0796d936b1954a67da37989302f082d4769ecbfd
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 14:35:23 2024 +0200
+
+    rm my_log.log, updated csv data
+
+commit fa6b0649b20bbee9a4bf234d834ff2545c0f2843
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 14:26:05 2024 +0200
+
+    init
+
+commit c109cb0501fd2b5be05eafbac459f9e0f2695e2c
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 14:25:35 2024 +0200
+
+    renamed logger
+
+commit 7192afd83ee62957015814442ff969c60a8eaebb
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 14:23:51 2024 +0200
+
+    Added logger
+
+commit e89738cf80f878233e4e49811f567e83658ed137
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 12:59:29 2024 +0200
+
+    template unittest
+
+commit 695729d0547b2a5b7e406f68ca1a1510999a9561
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 11:47:51 2024 +0200
+
+    deleted venv
+
+commit 07905560a5523ceaebbaeab24531dd5d201a4776
+Author: Sorin Barbu <sbarbu38@yahoo.com>
+Date:   Fri Mar 29 11:46:56 2024 +0200
+
+    Done DataIngestor

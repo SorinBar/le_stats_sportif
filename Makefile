@@ -15,8 +15,8 @@ install: enforce_venv requirements.txt
 	python -m pip install -r requirements.txt
 
 run_server: enforce_venv
-	rm job_id_*
-	rm  webserver.*
+	rm -r results
+	mkdir results
 	flask run
 	
 

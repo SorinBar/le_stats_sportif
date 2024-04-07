@@ -4,11 +4,11 @@ import pandas as pd
 
 ### Helpers ###
 def save_json(path, data):
-    with open(path, 'w') as json_file:
+    with open("results/" + path, 'w') as json_file:
         json.dump(data, json_file)
 
 def read_json(path):
-    with open(path, 'r') as json_file:
+    with open("results/" + path, 'r') as json_file:
         data = json.load(json_file)
     return data
 
