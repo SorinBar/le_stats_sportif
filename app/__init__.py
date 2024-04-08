@@ -11,6 +11,4 @@ webserver.logger = get_logger('webserver_logger', 'webserver.log')
 
 webserver.data_ingestor = DataIngestor("./nutrition_activity_obesity_usa_subset.csv")
 
-webserver.job_counter = 1
-
 from app import routes
