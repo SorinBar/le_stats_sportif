@@ -1,10 +1,11 @@
 from threading import Lock
 from concurrent.futures import ThreadPoolExecutor
-from dotenv import load_dotenv
 import os
 
 class ThreadPool:
     def __init__(self):
+        if not os.path.exists('results'):
+            os.makedirs('results')
         tp_num_of_threads = os.getenv("TP_NUM_OF_THREADS")
         if tp_num_of_threads:
             max_workers = int(tp_num_of_threads)

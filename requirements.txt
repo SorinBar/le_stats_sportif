@@ -2,4 +2,3 @@ pandas
 flask
 requests
 deepdiff
-python-dotenv

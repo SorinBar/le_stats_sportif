@@ -26,3 +26,11 @@ run_tests: enforce_venv
 run_unittests: enforce_venv
 	python unittests/test_webserver.py
 
+zip:
+	rm -r asc1.zip
+	rm -r /home/sorin/Downloads/t/*
+	git log > git-log
+	zip -r asc1 api_server.py git-log README.md app/ unittests/ -x 'app/__pycache__/*'
+	rm git-log
+	unzip asc1.zip -d /home/sorin/Downloads/t
+	cp nutrition_activity_obesity_usa_subset.csv /home/sorin/Downloads/t/nutrition_activity_obesity_usa_subset.csv
